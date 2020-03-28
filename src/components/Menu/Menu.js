@@ -10,7 +10,7 @@ width: 70%;
 padding: 10px;
 
 `
-export default function Menu() {
+export default function Menu(props) {
     return (
        <MenuStyled>
 
@@ -23,9 +23,9 @@ export default function Menu() {
                 <FoodGrid>
                     {foodItems.map((food) => {
                     return ( 
-                    <Food img = {food.img}>
+                    <Food img = {food.img} onClick = {() => props.setFood(food) }>
                         <FoodLabel> {food.name} </FoodLabel>
-                        </Food>
+                    </Food>
                     )
                     })}
 

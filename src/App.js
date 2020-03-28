@@ -1,32 +1,25 @@
-import React from 'react';
-import {createGlobalStyle} from 'styled-components'
+import React , {useState} from 'react';
 import {Banner} from "./components/Banner/Banner"
 import Navbar from './components/Navbar/Navbar'
 import Menu from './components/Menu/Menu';
+import {GlobalStyle} from './Styles/GlobalStyle'
+import FoodModal from './components/FoodModal/FoodModal';
 
 
 
-const GlobalStyle = createGlobalStyle`
-body{
-  margin: 0;
-  font-family: 'Open Sans', sans-serif;
 
-
-  h1, h2,h3{
-  font-family: 'Righteous', cursive;
-  color: rgba(0,0,0,0.9);
-
-  }
-}
-`
 
 function App() {
+
+  const [selectedFood, setFood] = useState()
   return (
     <>
   <GlobalStyle/>
+  <FoodModal selectedFood= {selectedFood} setFood = {setFood}/>
   <Navbar/>
+
   <Banner/>
-  <Menu/>
+  <Menu setFood = {setFood} />
     </>
   );
 }
