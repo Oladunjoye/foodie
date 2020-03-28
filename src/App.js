@@ -1,10 +1,13 @@
-import React , {useState} from 'react';
+import React  from 'react';
 import {Banner} from "./components/Banner/Banner"
 import Navbar from './components/Navbar/Navbar'
 import Menu from './components/Menu/Menu';
 import {GlobalStyle} from './Styles/GlobalStyle'
 import FoodModal from './components/FoodModal/FoodModal';
 import Order from './components/Order/Order';
+import {useSelectedFood} from './Hooks/useSelectedFood'
+import {useOrders} from './Hooks/useOrders'
+
 
 
 
@@ -12,16 +15,17 @@ import Order from './components/Order/Order';
 
 function App() {
 
-  const [selectedFood, setFood] = useState()
+  const selectedFood =  useSelectedFood()
+  const orders = useOrders()
   return (
     <>
   <GlobalStyle/>
-  <FoodModal selectedFood= {selectedFood} setFood = {setFood}/>
+  <FoodModal {...selectedFood} {...orders}/>
   <Navbar/>
-  <Order/>
+  <Order {...orders}/>
 
   <Banner/>
-  <Menu setFood = {setFood} />
+  <Menu setFood = {selectedFood.setFood} />
     </>
   );
 }
