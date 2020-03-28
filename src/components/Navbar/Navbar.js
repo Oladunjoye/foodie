@@ -9,7 +9,7 @@ background-color: #f44336;
 width: 100%;
 position : fixed;
 padding: 10px;
-z-index: 1000;
+z-index: 100;
 
 `
 

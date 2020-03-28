@@ -1,20 +1,46 @@
 import React from 'react'
 import styled from 'styled-components'
 import {FoodLabel} from '../Menu/FoodGrid'
+import { Title } from '../../Styles/Title'
 
 const Modal = styled.div`
 background-color: white;
 z-index: 10000;
 width: 500px;
-height: 500px;
 position: fixed;
-height: calc(100% - 10px);
+max-height: calc(100% - 100px);
 top: 75px;
-bottom: 300px;
-left: calc(50% - 250px)
+left: calc(50% - 250px);
+display: flex;
+flex-direction: column;
 
 `
 
+export const ModalContent =  styled.div`
+overflow: auto;
+min-height: 100px;
+
+`
+
+export const ModalFooter =  styled.div`
+height: 60px;
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0px -2px 10px 0px grey;
+`
+
+export const ConfirmButton = styled(Title)`
+color: white;
+border-radius: 5px;
+padding: 10px;
+margin: 10px;
+height: 20px;
+width: 200px;
+cursor: pointer;
+background-color: red;
+text-align: center;
+`
 const ModalOverlay = styled.div`
 
 width: 100%;
@@ -55,6 +81,14 @@ export default function FoodModal({selectedFood, setFood}) {
 
         <DialogLabel>{selectedFood.name}</DialogLabel>
             </ModalBanner>
+         <ModalContent>
+        I am the content here     
+        </ModalContent>   
+        <ModalFooter>
+            <ConfirmButton role = 'button' tabIndex= '0'>
+                Confirm 
+            </ConfirmButton>
+        </ModalFooter>
         </Modal>
         </ModalOverlay>
         }
