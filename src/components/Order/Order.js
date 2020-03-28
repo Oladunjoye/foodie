@@ -28,12 +28,21 @@ padding: 20px;
 const OrderFooter = styled(ModalFooter)`
 
 `
-export default function Order() {
+export default function Order({orders}) {
     return (
         <OrderStyled>
-            <OrderContent>
-                I am the content
-            </OrderContent>
+             {orders.length === 0 ? 
+             
+            ( <OrderContent>
+               Your order is pretty empty. You should add to it
+             </OrderContent>)
+
+             :
+             <OrderContent>
+                 {orders.length} Orders
+             </OrderContent>
+            }
+           
             <OrderFooter>
                 <ConfirmButton>Confirm Order</ConfirmButton>
             </OrderFooter>

@@ -70,12 +70,27 @@ font-size: 30px;
 
 
 
-export default function FoodModal({selectedFood, setFood}) {
+export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
+
+    const addToOrder= () => {
+        const order = {
+            name: selectedFood.name
+        }
+
+        setOrders([...orders, order])
+        closeModal()
+        
+
+    }
+
+    const closeModal = () =>{
+        setFood()
+    }
     return (
       
         <>
         {selectedFood &&
-        <ModalOverlay onClick = {()=> setFood()}>
+        <ModalOverlay onClick = {closeModal}>
         <Modal>
             <ModalBanner img = {selectedFood.img}>
 
@@ -85,7 +100,7 @@ export default function FoodModal({selectedFood, setFood}) {
         I am the content here     
         </ModalContent>   
         <ModalFooter>
-            <ConfirmButton role = 'button' tabIndex= '0'>
+            <ConfirmButton role = 'button' tabIndex= '0' onClick ={addToOrder}>
                 Add to Order
             </ConfirmButton>
         </ModalFooter>
