@@ -7,6 +7,7 @@ background-image: url('/Images/foodie-hero.jpg');
 background-repeat: no-repeat;
 background-position: center;
 background-size: cover;
+filter: contrast(75%);
 
 
 `
