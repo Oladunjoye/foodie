@@ -86,7 +86,7 @@ export default function FoodModal({selectedFood, setFood}) {
         </ModalContent>   
         <ModalFooter>
             <ConfirmButton role = 'button' tabIndex= '0'>
-                Confirm 
+                Add to Order
             </ConfirmButton>
         </ModalFooter>
         </Modal>
