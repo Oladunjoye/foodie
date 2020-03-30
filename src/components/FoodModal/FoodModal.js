@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import {FoodLabel} from '../Menu/FoodGrid'
 import { Title } from '../../Styles/Title'
 import {formatPrice} from '../../Data/FoodData'
+import QuantityInput from './QuantityInput'
+import { useQuantity } from '../../Hooks/useQuantity'
 
 const Modal = styled.div`
 background-color: white;
@@ -72,6 +74,7 @@ font-size: 30px;
 
 
 export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
+    const quantity = useQuantity(selectedFood && selectedFood.quantity)
 
     const addToOrder= () => {
         const order = {
@@ -91,14 +94,15 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
       
         <>
         {selectedFood &&
-        <ModalOverlay onClick = {closeModal}>
+        <>
+        <ModalOverlay onClick = {closeModal}/>
         <Modal>
             <ModalBanner img = {selectedFood.img}>
 
         <DialogLabel>{selectedFood.name}</DialogLabel>
             </ModalBanner>
          <ModalContent>
-        I am the content here     
+      <QuantityInput type ="number" quantity ={quantity}/>   
         </ModalContent>   
         <ModalFooter>
             <ConfirmButton role = 'button' tabIndex= '0' onClick ={addToOrder}>
@@ -106,7 +110,7 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
             </ConfirmButton>
         </ModalFooter>
         </Modal>
-        </ModalOverlay>
+       </>
         }
         </>
       
