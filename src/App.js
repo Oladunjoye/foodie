@@ -7,6 +7,8 @@ import FoodModal from './components/FoodModal/FoodModal';
 import Order from './components/Order/Order';
 import {useSelectedFood} from './Hooks/useSelectedFood'
 import {useOrders} from './Hooks/useOrders'
+import {useTitle} from './Hooks/useTitle'
+
 
 
 
@@ -17,6 +19,7 @@ function App() {
 
   const selectedFood =  useSelectedFood()
   const orders = useOrders()
+  useTitle(selectedFood, orders)
   return (
     <>
   <GlobalStyle/>
