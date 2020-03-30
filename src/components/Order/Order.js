@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {ConfirmButton, ModalFooter, ModalContent} from '../FoodModal/FoodModal'
+import {formatPrice} from '../../Data/FoodData'
 
 const OrderStyled = styled.section`
 
@@ -37,6 +38,9 @@ padding: 10px 0px;
 color: black;
 font-family: 'Open Sans', sans-serif;
 
+display: grid;
+grid-template-columns: 20px 150px 20px 60px;
+
 
 `
 const OrderFooter = styled(ModalFooter)`
@@ -57,7 +61,11 @@ export default function Order({orders}) {
                  {orders.map((order) => {
                      return (
                          <OrderItem>
-                             {order.name}
+                             <div>1</div>
+                             <div>{order.name}</div>
+                             <div>1</div>
+                             
+                            <div> {formatPrice(1000)} </div>
                          </OrderItem>
                      )
                  })}

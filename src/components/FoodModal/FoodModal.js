@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {FoodLabel} from '../Menu/FoodGrid'
 import { Title } from '../../Styles/Title'
+import {formatPrice} from '../../Data/FoodData'
 
 const Modal = styled.div`
 background-color: white;
@@ -74,7 +75,7 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
 
     const addToOrder= () => {
         const order = {
-            name: selectedFood.name
+           ...selectedFood
         }
 
         setOrders([...orders, order])
@@ -101,7 +102,7 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
         </ModalContent>   
         <ModalFooter>
             <ConfirmButton role = 'button' tabIndex= '0' onClick ={addToOrder}>
-                Add to Order
+                Add to Order : {formatPrice(selectedFood.price)}
             </ConfirmButton>
         </ModalFooter>
         </Modal>
