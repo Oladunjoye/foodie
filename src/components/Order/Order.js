@@ -7,7 +7,6 @@ const OrderStyled = styled.section`
 width: 360px;
 right: 0;
 background-color: white;
-color: red;
 top: 60px;
 position: fixed;
 z-index:1000;
@@ -20,11 +19,26 @@ justify-content: space-between;
 
 `;
 
-const OrderContent = styled(ModalContent)`
+const OrderMain = styled(ModalContent)`
 height: 100%;
 padding: 20px;
+color: red;
+
 `
 
+const OrderContent =styled.div`
+padding: 10px 0px;
+border-bottom: 1px solid grey;
+`
+
+const OrderItem = styled.div`
+border-bottom: 1px solid grey;
+padding: 10px 0px;
+color: black;
+font-family: 'Open Sans', sans-serif;
+
+
+`
 const OrderFooter = styled(ModalFooter)`
 
 `
@@ -33,14 +47,21 @@ export default function Order({orders}) {
         <OrderStyled>
              {orders.length === 0 ? 
              
-            ( <OrderContent>
+            ( <OrderMain>
                Your order is pretty empty. You should add to it
-             </OrderContent>)
+             </OrderMain>)
 
              :
-             <OrderContent>
-                 {orders.length} Orders
-             </OrderContent>
+             <OrderMain>
+                  <OrderContent>You have {orders.length} Orders </OrderContent>
+                 {orders.map((order) => {
+                     return (
+                         <OrderItem>
+                             {order.name}
+                         </OrderItem>
+                     )
+                 })}
+             </OrderMain>
             }
            
             <OrderFooter>
