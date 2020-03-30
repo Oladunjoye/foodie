@@ -61,11 +61,11 @@ export default function Order({orders}) {
                  {orders.map((order) => {
                      return (
                          <OrderItem>
-                             <div>1</div>
+                             <div>{order.quantity}</div>
                              <div>{order.name}</div>
                              <div>1</div>
                              
-                            <div> {formatPrice(1000)} </div>
+                            <div> {formatPrice(order.price * order.quantity)} </div>
                          </OrderItem>
                      )
                  })}

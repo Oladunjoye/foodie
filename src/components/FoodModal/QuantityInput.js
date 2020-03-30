@@ -4,11 +4,7 @@ import { Title } from '../../Styles/Title'
 
 
 const QuantityInputStyled = styled.input.attrs({
-    type: 'number',
-    min: 0,
-
-    max: 10
-
+   
 })`
 font-size: 18px;
 text-align: center;
@@ -24,9 +20,10 @@ display: flex;
 
 `
 
-const IcrementButton =  styled.div`
+const IncrementButton =  styled.div`
 width: 23px;
 color: red;
+font-size: 20px;
 text-align: center;
 cursor: pointer;
 line-height: 23px;
@@ -37,11 +34,12 @@ ${({disabled}) =>  disabled &&
 `opacity: 0.5;
 pointer-events: none;
 
-&:hover{
-    background-color: #ffe3e3;
-}
+
 
 `
+}
+&:hover{
+    background-color: #ffe3e3;
 }
 `
 export default function QuantityInput({quantity}) {
@@ -49,8 +47,10 @@ export default function QuantityInput({quantity}) {
         <IncrementContainer>
             <div>   Quantity : </div>
           
-            
+            <IncrementButton onClick= {() => quantity.setValue(quantity.value - 1)} disabled ={quantity.value < 2}> - </IncrementButton>
             <QuantityInputStyled {...quantity}/>
+            <IncrementButton onClick= {() => quantity.setValue(quantity.value + 1)}  disabled ={quantity.value >= 10}> + </IncrementButton>
+
        
         </IncrementContainer>
     )

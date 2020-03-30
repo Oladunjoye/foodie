@@ -76,11 +76,17 @@ font-size: 30px;
 export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
     const quantity = useQuantity(selectedFood && selectedFood.quantity)
 
-    const addToOrder= () => {
-        const order = {
-           ...selectedFood
-        }
+    const order = {
+        ...selectedFood,
+        quantity: quantity.value
+     }
 
+     const getPrice = () => {
+       return order.price * order.quantity
+     }
+
+    const addToOrder= () => {
+       
         setOrders([...orders, order])
         closeModal()
         
@@ -106,7 +112,7 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
         </ModalContent>   
         <ModalFooter>
             <ConfirmButton role = 'button' tabIndex= '0' onClick ={addToOrder}>
-                Add to Order : {formatPrice(selectedFood.price)}
+                Add to Order : {formatPrice(getPrice()  )}
             </ConfirmButton>
         </ModalFooter>
         </Modal>
