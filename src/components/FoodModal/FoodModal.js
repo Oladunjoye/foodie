@@ -5,6 +5,7 @@ import { Title } from '../../Styles/Title'
 import {formatPrice} from '../../Data/FoodData'
 import QuantityInput from './QuantityInput'
 import { useQuantity } from '../../Hooks/useQuantity'
+import Toppings from './Toppings'
 
 const Modal = styled.div`
 background-color: white;
@@ -110,6 +111,7 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
             </ModalBanner>
          <ModalContent>
       <QuantityInput type ="number" quantity ={quantity}/>   
+      <Toppings/>
         </ModalContent>   
         <ModalFooter>
             <ConfirmButton role = 'button' tabIndex= '0' onClick ={addToOrder}>
