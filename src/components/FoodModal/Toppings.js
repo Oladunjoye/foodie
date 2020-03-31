@@ -21,6 +21,8 @@ export default function Toppings() {
         <ToppingsGrid>
             <InputLabel>
             <ToppingsInput type= "checkbox" onClick = {()=> alert('Hey')} />
+            Toppings
+
             </InputLabel>
 
         </ToppingsGrid>

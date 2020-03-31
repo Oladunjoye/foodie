@@ -86,7 +86,10 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
      const getPrice = () => {
        return order.price * order.quantity
      }
-
+      
+     const hasToppings = (food) =>{
+         return food.section === 'Pizza'
+     }
     const addToOrder= () => {
        
         setOrders([...orders, order])
@@ -111,7 +114,12 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
             </ModalBanner>
          <ModalContent>
       <QuantityInput type ="number" quantity ={quantity}/>   
+      {hasToppings(selectedFood) && 
+      <>
+      <h3>Would you like toppings?</h3>
       <Toppings/>
+      </>
+     }
         </ModalContent>   
         <ModalFooter>
             <ConfirmButton role = 'button' tabIndex= '0' onClick ={addToOrder}>
