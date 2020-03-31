@@ -22,6 +22,7 @@ flex-direction: column;
 export const ModalContent =  styled.div`
 overflow: auto;
 min-height: 100px;
+padding: 10px;
 
 `
 

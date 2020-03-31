@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {ConfirmButton, ModalFooter, ModalContent} from '../FoodModal/FoodModal'
 import {formatPrice} from '../../Data/FoodData'
 
+
 const OrderStyled = styled.section`
 
 width: 360px;
@@ -33,7 +34,6 @@ border-bottom: 1px solid grey;
 `
 
 const OrderItem = styled.div`
-border-bottom: 1px solid grey;
 padding: 10px 0px;
 color: black;
 font-family: 'Open Sans', sans-serif;
@@ -47,6 +47,19 @@ const OrderFooter = styled(ModalFooter)`
 
 `
 export default function Order({orders}) {
+    const getPrice = (order) => {
+        return order.quantity * order.price
+    }
+
+    const subTotal =  orders.reduce((total, order)=> {
+            return total + getPrice(order)
+        }, 0)
+        
+       
+         const tax= subTotal * 0.025
+         const total  = subTotal + tax
+
+    
     return (
         <OrderStyled>
              {orders.length === 0 ? 
@@ -60,15 +73,36 @@ export default function Order({orders}) {
                   <OrderContent>You have {orders.length} Orders </OrderContent>
                  {orders.map((order) => {
                      return (
-                         <OrderItem>
-                             <div>{order.quantity}</div>
-                             <div>{order.name}</div>
+                         <OrderContent>                         <OrderItem>
                              <div>1</div>
+                             <div>{order.name}</div>
+                             <div>{order.quantity}</div>
                              
-                            <div> {formatPrice(order.price * order.quantity)} </div>
+                            <div> {formatPrice(getPrice(order))} </div>
                          </OrderItem>
+                         </OrderContent>
+
                      )
                  })}
+            <OrderContent>
+            <OrderItem>
+            <div/>
+            <div> Sub-Total</div>
+             <div> {formatPrice(subTotal)} </div>
+            </OrderItem>
+            <OrderItem>
+            <div/>
+            <div> Tax </div>
+             <div> {formatPrice(tax)} </div>
+            </OrderItem>
+            <OrderItem>
+            <div/>
+            <div> Total</div>
+             <div> {formatPrice(total)} </div>
+            </OrderItem>
+            </OrderContent>
+           
+
              </OrderMain>
             }
            
