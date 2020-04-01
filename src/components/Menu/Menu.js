@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import styled from 'styled-components'
 import {FoodGrid, Food, FoodLabel, FoodWrapper} from './FoodGrid'
 import {foodItems, foods} from '../../Data/FoodData'
@@ -14,16 +14,16 @@ export default function Menu(props) {
     return (
        <MenuStyled>
 
-           {Object.entries(foods).map(([sectionTitle, foods]) => {
+           {Object.entries(foods).map(([sectionTitle, foods],index) => {
 
                return(
-               <>
-               <FoodWrapper>
+               <Fragment key ={index}>
+               <FoodWrapper >
                <h1>{sectionTitle}</h1>
                 <FoodGrid>
-                    {foodItems.map((food) => {
+                    {foodItems.map((food, index) => {
                     return ( 
-                    <Food img = {food.img} onClick = {() => props.setFood(food) }>
+                    <Food key = {index} img = {food.img} onClick = {() => props.setFood(food) }>
                         <FoodLabel> {food.name} </FoodLabel>
                     </Food>
                     )
@@ -31,7 +31,7 @@ export default function Menu(props) {
 
            </FoodGrid>
            </FoodWrapper>
-               </>
+               </Fragment>
 
                )
 

@@ -7,6 +7,7 @@ import QuantityInput from './QuantityInput'
 import { useQuantity } from '../../Hooks/useQuantity'
 import { useToppings } from '../../Hooks/useToppings'
 
+
 import Toppings from './Toppings'
 
 const Modal = styled.div`
@@ -77,9 +78,11 @@ font-size: 30px;
 
 
 
-export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
+export default function FoodModal({selectedFood, setFood, orders,setOrders, edit,setEdit}) {
     const quantity = useQuantity(selectedFood && selectedFood.quantity)
     const toppings = useToppings( )
+    const isEditing = edit.value 
+    console.log(isEditing)
 
     const order = {
         ...selectedFood,
@@ -87,6 +90,16 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
         toppings: toppings.toppings
      }
 
+    const editOrder = () => {
+
+        const index = edit.index
+        const newOrders =  [...orders]
+        newOrders[index]= order
+        setOrders(newOrders)
+        setEdit({value: false, index: ""})
+        closeModal()
+
+    } 
      const getPrice = () => {
          const perToppingPrice = 100
          const toppingQty = order.toppings.filter((t) =>  t.checked).length
@@ -101,7 +114,7 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
        
         setOrders([...orders, order])
         closeModal()
-        quantity.setValue(1)
+        // quantity.setValue(1)
         
 
     }
@@ -130,8 +143,8 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
      }
         </ModalContent>   
         <ModalFooter>
-            <ConfirmButton role = 'button' tabIndex= '0' onClick ={addToOrder}>
-                Add to Order : {formatPrice(getPrice()  )}
+            <ConfirmButton role = 'button' tabIndex= '0' onClick ={isEditing ? editOrder : addToOrder}>
+               {isEditing ? 'Update Order':  `Add to Order`  }: {formatPrice(getPrice()  )}
             </ConfirmButton>
         </ModalFooter>
         </Modal>

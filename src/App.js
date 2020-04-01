@@ -8,6 +8,7 @@ import Order from './components/Order/Order';
 import {useSelectedFood} from './Hooks/useSelectedFood'
 import {useOrders} from './Hooks/useOrders'
 import {useTitle} from './Hooks/useTitle'
+import { useEdit } from './Hooks/useEdit';
 
 
 
@@ -19,13 +20,14 @@ function App() {
 
   const selectedFood =  useSelectedFood()
   const orders = useOrders()
+  const edit= useEdit()
   useTitle(selectedFood, orders)
   return (
     <>
   <GlobalStyle/>
-  <FoodModal {...selectedFood} {...orders}/>
+  <FoodModal {...selectedFood} {...orders} {...edit}/>
   <Navbar/>
-  <Order {...orders}/>
+  <Order {...orders} {...selectedFood} {...edit}/>
 
   <Banner/>
   <Menu setFood = {selectedFood.setFood} />

@@ -47,20 +47,36 @@ grid-template-columns:2.5fr 1fr 1fr 1fr ;
 const OrderSubItem = styled(OrderItem)`
 grid-template-columns: repeat(3, 1fr) 20px;`
 
-const OrderTopItem = styled(OrderItem)`
 
-grid-template-columns: repeat(4, 1fr);
-text-align: left;
-`
 const OrderFooter = styled(ModalFooter)`
 
+`
+
+const ItemName= styled.div`
+
+cursor: pointer;
+transition-property: hover;
+transition-duration: 2s;
+&:hover{
+    color: red;
+}
 `
 
 const DetailItem = styled.div`
 color: grey;
 font-size: 10px;
 `
-export default function Order({orders, setOrders}) {
+export default function Order({orders, setOrders, setFood, setEdit, edit}) {
+    // const editHook = useEdit()
+
+    const handleEdit = (order,index) => {
+        setEdit({value: true, index: index})
+       setFood({...order})
+       
+    }
+
+    // console.log('Order Modal',editHook.edit)
+
     const getPrice = (order) => {
 
         const perToppingPrice = 100
@@ -70,7 +86,8 @@ export default function Order({orders, setOrders}) {
       return order.quantity * (order.price + totalToppingPrice )
     }
 
-    const deleteOrder= (id) => {
+    const deleteOrder= (id,e) => {
+        e.stopPropagation()
         const newOrders= [...orders]
         newOrders.splice(id,1)
         setOrders(newOrders)
@@ -81,6 +98,7 @@ export default function Order({orders, setOrders}) {
         }, 0)
         
        
+      
          const tax= subTotal * 0.025
          const total  = subTotal + tax
 
@@ -107,13 +125,15 @@ export default function Order({orders, setOrders}) {
                   </OrderContent>
                  {orders.map((order, index) => {
                      return (
-                         <OrderContent>                  
-                           <OrderItem>
-                             <div>{order.name}</div>
+                         <OrderContent key = {index}>                  
+                           <OrderItem >
+                             <ItemName 
+                             
+                             onClick= {()=> handleEdit(order,index)}>{order.name}</ItemName>
                              <div> x {order.quantity}</div>
                              
                             <div> {formatPrice(getPrice(order))} </div>
-                            <div style ={{cursor: 'pointer', marginLeft: "auto", color:"red"}} onClick = {() => deleteOrder(index)}> ✘</div>
+                            <div style ={{cursor: 'pointer', marginLeft: "auto", color:"red"}} onClick = {(e) => deleteOrder(index,e)}> ✘</div>
                          </OrderItem>
                         <DetailItem>
                          {

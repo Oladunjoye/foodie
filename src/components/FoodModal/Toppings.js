@@ -22,8 +22,8 @@ export default function Toppings({toppings, checkTopping}) {
             {
                 toppings.map((topping, index) => {
                     return(
-                        <InputLabel>
-                        <ToppingsInput type= "checkbox" checked = {topping.checked} onClick = {() =>checkTopping(index)} />
+                        <InputLabel key = {index}>
+                        <ToppingsInput type= "checkbox" checked = {topping.checked} onChange = {() =>checkTopping(index)} />
                         {topping.name}
             
                         </InputLabel>
