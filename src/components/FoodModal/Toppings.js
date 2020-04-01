@@ -16,14 +16,21 @@ const InputLabel = styled.label`
 cursor: pointer;
 `
 
-export default function Toppings() {
+export default function Toppings({toppings, checkTopping}) {
     return (
         <ToppingsGrid>
-            <InputLabel>
-            <ToppingsInput type= "checkbox" onClick = {()=> alert('Hey')} />
-            Toppings
-
-            </InputLabel>
+            {
+                toppings.map((topping, index) => {
+                    return(
+                        <InputLabel>
+                        <ToppingsInput type= "checkbox" checked = {topping.checked} onClick = {() =>checkTopping(index)} />
+                        {topping.name}
+            
+                        </InputLabel>
+                    )
+                })
+            }
+           
 
         </ToppingsGrid>
     )

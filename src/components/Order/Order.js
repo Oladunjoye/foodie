@@ -48,7 +48,12 @@ const OrderFooter = styled(ModalFooter)`
 `
 export default function Order({orders}) {
     const getPrice = (order) => {
-        return order.quantity * order.price
+
+        const perToppingPrice = 100
+
+        const toppingQty = order.toppings.filter((t) =>  t.checked).length
+        const totalToppingPrice = (perToppingPrice * toppingQty) 
+      return order.quantity * (order.price + totalToppingPrice )
     }
 
     const subTotal =  orders.reduce((total, order)=> {

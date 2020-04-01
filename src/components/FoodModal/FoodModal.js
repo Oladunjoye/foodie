@@ -5,6 +5,8 @@ import { Title } from '../../Styles/Title'
 import {formatPrice} from '../../Data/FoodData'
 import QuantityInput from './QuantityInput'
 import { useQuantity } from '../../Hooks/useQuantity'
+import { useToppings } from '../../Hooks/useToppings'
+
 import Toppings from './Toppings'
 
 const Modal = styled.div`
@@ -23,7 +25,7 @@ flex-direction: column;
 export const ModalContent =  styled.div`
 overflow: auto;
 min-height: 100px;
-padding: 10px;
+padding: 0 40px 10px 40px;
 
 `
 
@@ -41,7 +43,7 @@ border-radius: 5px;
 padding: 10px;
 margin: 10px;
 height: 20px;
-width: 200px;
+min-width: 200px;
 cursor: pointer;
 background-color: red;
 text-align: center;
@@ -77,14 +79,19 @@ font-size: 30px;
 
 export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
     const quantity = useQuantity(selectedFood && selectedFood.quantity)
+    const toppings = useToppings( )
 
     const order = {
         ...selectedFood,
-        quantity: quantity.value
+        quantity: quantity.value,
+        toppings: toppings.toppings
      }
 
      const getPrice = () => {
-       return order.price * order.quantity
+         const perToppingPrice = 100
+         const toppingQty = order.toppings.filter((t) =>  t.checked).length
+         const totalToppingPrice = (perToppingPrice * toppingQty) 
+       return order.quantity * (order.price + totalToppingPrice )
      }
       
      const hasToppings = (food) =>{
@@ -117,7 +124,7 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
       {hasToppings(selectedFood) && 
       <>
       <h3>Would you like toppings?</h3>
-      <Toppings/>
+      <Toppings {...toppings}/>
       </>
      }
         </ModalContent>   
