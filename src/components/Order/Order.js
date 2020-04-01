@@ -39,14 +39,28 @@ color: black;
 font-family: 'Open Sans', sans-serif;
 
 display: grid;
-grid-template-columns: 20px 150px 20px 60px;
+grid-template-columns:2.5fr 1fr 1fr 1fr ;
 
 
+`
+
+const OrderSubItem = styled(OrderItem)`
+grid-template-columns: repeat(3, 1fr) 20px;`
+
+const OrderTopItem = styled(OrderItem)`
+
+grid-template-columns: repeat(4, 1fr);
+text-align: left;
 `
 const OrderFooter = styled(ModalFooter)`
 
 `
-export default function Order({orders}) {
+
+const DetailItem = styled.div`
+color: grey;
+font-size: 10px;
+`
+export default function Order({orders, setOrders}) {
     const getPrice = (order) => {
 
         const perToppingPrice = 100
@@ -56,6 +70,12 @@ export default function Order({orders}) {
       return order.quantity * (order.price + totalToppingPrice )
     }
 
+    const deleteOrder= (id) => {
+        const newOrders= [...orders]
+        newOrders.splice(id,1)
+        setOrders(newOrders)
+
+    }
     const subTotal =  orders.reduce((total, order)=> {
             return total + getPrice(order)
         }, 0)
@@ -75,26 +95,43 @@ export default function Order({orders}) {
 
              :
              <OrderMain>
-                  <OrderContent>You have {orders.length} Orders </OrderContent>
-                 {orders.map((order) => {
+                  <OrderContent>You have {orders.length} Order(s) </OrderContent>
+                  <OrderContent>
+                      <OrderItem>
+                          <div>Name</div>
+                          <div>Qty</div>
+                          <div>Price</div>
+                          <div></div>
+
+                      </OrderItem>
+                  </OrderContent>
+                 {orders.map((order, index) => {
                      return (
-                         <OrderContent>                         <OrderItem>
-                             <div>1</div>
+                         <OrderContent>                  
+                           <OrderItem>
                              <div>{order.name}</div>
-                             <div>{order.quantity}</div>
+                             <div> x {order.quantity}</div>
                              
                             <div> {formatPrice(getPrice(order))} </div>
+                            <div style ={{cursor: 'pointer', marginLeft: "auto", color:"red"}} onClick = {() => deleteOrder(index)}> ✘</div>
                          </OrderItem>
+                        <DetailItem>
+                         {
+                             order.toppings.filter((t) =>  t.checked).map((t)=> t.name).join(', ')
+                         }
+                         </DetailItem>
                          </OrderContent>
 
                      )
                  })}
             <OrderContent>
-            <OrderItem>
+            <OrderSubItem>
             <div/>
             <div> Sub-Total</div>
              <div> {formatPrice(subTotal)} </div>
-            </OrderItem>
+            <div/>
+
+            </OrderSubItem>
             <OrderItem>
             <div/>
             <div> Tax </div>

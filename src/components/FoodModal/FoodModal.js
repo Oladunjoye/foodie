@@ -101,6 +101,7 @@ export default function FoodModal({selectedFood, setFood, orders,setOrders}) {
        
         setOrders([...orders, order])
         closeModal()
+        quantity.setValue(1)
         
 
     }

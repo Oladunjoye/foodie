@@ -48,13 +48,8 @@ export const foodItems = [
     name: "Fries",
     section: "Sides",
     price: 1200
-  },
-  {
-    price: 150,
-    name: "Soda",
-    section: "Drinks",
-    choices: ["Coke", "Sprite", "Root Beer"]
   }
+  
 ];
 
 export const foods = foodItems.reduce((res, food) => {
